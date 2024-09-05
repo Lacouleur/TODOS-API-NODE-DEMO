@@ -1,0 +1,62 @@
+##Créer une api crud
+
+Dans ce chapitre nous allons pratiquer ce que l'on a vu depuis le début de cette formation à travers un exemple concret, la création d'une API pour gérer une TodoList.
+
+Les points d'entrée attendus sont les suivants (ces commandes curl sont compris par les outils de test HTTP et vous pouvez les copier dans votre logiciel). Vous pouvez utiliser Insomnia pour tester votre API.
+
+Il y a 4 point d'entrés qui correspondent au CRUD, Creat Read Update Delete.
+
+## GET
+
+Le premier point d'entré sera /todos en GET
+Si appel cette URL Là on aura un tableau contenant les tâches à faire.
+Chaque tache aura un ID unique (ex date.now), completed (un bool) et la tâche qui sera une string.
+
+L'API communique au format JSON
+
+curl --request GET \
+ --url http://localhost:3000/todos \
+ --header 'Accept: application/json'
+
+
+## POST
+
+On aura la possibilité d'appeler /todos en POST
+On lui passe du JSON en Body, avec un titre (string) et un completed (bool)
+
+En retour on obtiens "OK 200" et l'objet envoyé associé à son ID
+
+curl --request POST \
+  --url http://localhost:3000/todos \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "title": "Créer une tache sans completed"
+}'
+
+## DELETE
+
+Pour le delete on on vaz appeler /todos et le query parameter "id"
+/todos?id=1234343
+En reponse on aura du 204 pour dire "le contenu a bien été delete".
+
+curl --request DELETE \
+  --url 'http://localhost:3000/todos?id=1665408078533' \
+  --header 'Accept: application/json'
+
+## PUT
+
+Pour modifier les informations, on utilise /todos?id=1234343
+avec un body contenant les informations à modifier.
+
+On s'attend à avoir en réponse l'objet modifié et son ID
+
+
+curl --request PUT \
+  --url 'http://localhost:3000/todos?id=1665406138048' \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "completed": true
+}'
+
